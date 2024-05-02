@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Create Order</h1>
+    <div>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="button" onclick="getLocation()">Fill By Current Location</button>
+
+            <input type="submit" name="submit" id="" value="submit">
+        </form>
+    </div>
+
+    <script>
+        var Latitude = document.getElementById('id_latitude')
+        var Longitude = document.getElementById('id_longitude')
+
+        function getLocation(){
+            if('geolocation' in navigator){
+                navigator.geolocation.getCurrentPosition((position)=>{
+                    Latitude.value = position.coords.latitude
+                    Longitude.value = position.coords.longitude
+                })
+            }
+        }
+
+        function update_areas() {
+            var city_select = document.getElementById('id_city');
+            var area_select = document.getElementById('id_area');
+            var city_id = city_select.value;
+    
+            fetch(`/get_areas/${city_id}/`)
+                .then(response => response.json())
+                .then(data => {
+                    area_select.innerHTML = '';
+                    data.forEach(area => {
+                        var option = document.createElement('option');
+                        option.value = area.id;
+                        option.text = area.name;
+                        area_select.appendChild(option);
+                    });
+                });
+        }
+    </script>
+    
+</body>
+</html>

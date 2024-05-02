@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="messages">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <h1>STAFF DASHBOARD</h1>
+    <div class="navbar">
+            <p>welcome {{user}}</p>
+            <a href="{% url 'orders_list' %}">Order List</a>
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'dashboard' %}">home</a>
+    </div>
+</body>
+</html>

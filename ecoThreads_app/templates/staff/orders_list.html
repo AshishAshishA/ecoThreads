@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'dashboard' %}">home</a> <br> <br>
+        <button><a href="{% url 'orders_list' %}">All Orders</a></button>
+        <button><a href="{% url 'orders_pending' 'Pending' %}">Pending</a></button>
+        <button><a href="{% url 'orders_out_to_collect' 'Out to collect' %}">Out to Collect</a></button>
+        <button><a href="{% url 'orders_collected' 'Collected' %}">Collected</a></button>
+
+        <button style="margin-left: 60%;"><a href="{% url 'map_view' %}">Map View</a></button>
+    </div>
+    <br>
+    <div>
+        {% for order in orders %}
+            <button>
+                {{ order.order_name }}</p>
+                <p>{{ order.user }}</p>
+                <p>{{ order.status }}</p>
+                <a href="{% url 'update_status' order.id %}">Update Status</a>
+                <p><img src="{{ order.image.url }}" alt="Order Image" style="max-width: 200px; max-height: 200px;"></p>
+                <p>{{ order.description }}</p>
+                <p>{{ order.category.name }}</p>
+                <p>{{ order.address.area.name }} {{ order.address.area.city.name }} {{ order.address.pincode }}</p>
+                <p>Modified: {{ order.modified_at }}</p>
+                <p>Created: {{ order.created_at }}</p>
+            </button>
+            <br><br>
+        {% endfor %}
+    </div>
+</body>
+</html>

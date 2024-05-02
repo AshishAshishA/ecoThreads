@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>order list</h1>
+    <p>{{user}}</p>
+
+    <div class="navbar">
+        <a href="{% url 'dashboard' %}">home</a>
+        <a href="{% url 'my-orders' %}"></a>
+    </div>
+
+    <div>
+        {% for order in orders %}
+            <button>
+                <a href="{% url 'review-order' order.id %}">{{ order.order_name }}</a>
+            </button>
+            <br><br>
+        {% endfor %}
+    </div>
+</body>
+</html>

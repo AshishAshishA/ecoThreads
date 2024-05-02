@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Order Review</h1>
+    <p>{{user}}</p>
+
+    <div class="navbar">
+        <a href="{% url 'dashboard' %}">home</a>
+        <a href="{% url 'my-orders' %}">My orders</a>
+    </div>
+    <div>
+        {% if order %}
+            <p>{{ order.user }}</p>
+            <p>{{ order.status }}</p>
+            <p>{{ order.order_name }}</p>
+            <p><img src="{{ order.image.url }}" alt="Order Image" style="max-width: 200px; max-height: 200px;"></p>
+            <p>{{ order.description }}</p>
+            <p>{{ order.category.name }}</p>
+            <p>{{ order.address.area.name }} {{ order.address.area.city.name }} {{ order.address.pincode }}</p>
+            <button><a href="{% url 'update-order' order.pk %}">Update</a></button>
+            <div>
+                <form action="{% url 'delete-order' order.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Cancel</button>
+                </form>
+            </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>
